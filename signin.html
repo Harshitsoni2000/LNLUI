@@ -1,0 +1,96 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PROPERTY MANAGEMENT SYSTEM</title>
+	<link rel="stylesheet" href="s1.css">
+	<style>.my{
+		background-color: #2eca6a;
+	}
+	html{
+		background-color:#2eca6a
+	}
+	</style>
+  <script>
+    if(localStorage.getItem("user")!=null
+      || localStorage.getItem("host")!=null) {
+      window.location.href = `index.html`;
+    }
+  </script>
+</head>
+<body>
+<div class="wrapper fadeInDown my">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Sign In </h2>
+    <h2 class="inactive underlineHover"><a href="signup.html">Sign Up </a></h2>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="user.png" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form action="" method="post" style="display: flex;flex-direction:column;align-items:center;">
+      <p>Signup as a: 
+        <input type="radio" id="user" name="role" value="true">
+        <label for="user">User</label>
+        <input type="radio" id="host" name="role" value="false">
+        <label for="host">Host</label><br> 
+      </p>
+      <input type="text" id="text" class="fadeIn second text" name="text" placeholder="Is HOST?(true/false)" required>
+      <input type="email" id="email" class="fadeIn second email" name="email" placeholder="Email/Host ID" required>
+      <input type="password" id="password" class="fadeIn third password" name="password" placeholder="User Password" required>
+      <button type="button" class="fadeIn fourth" value="Log in" onclick="func()">Log in</button>
+    </form>
+
+
+    <div id="formFooter">
+       <p>Don't have an account? <a class="underlineHover" href="signup.html">Register here</a>.</p>
+
+    </div>
+
+  </div>
+</div>
+<script>
+  function func() {
+    let data = {
+      email : document.querySelector(".email").value,
+      password : document.querySelector(".password").value,
+      isHost : document.querySelector(".text").value==="true"?true:false
+    };
+    console.log(data);
+
+    fetch(`http://localhost:7900/elastic/signin`, {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Request-Method': 'POST',
+          'Access-Control-Request-Headers': 'Content-Type'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(message => {
+        if(message["success"]) {
+          if(data.isHost) {
+            alert("Host Logged In");
+            localStorage.setItem("host", data.email);
+          } else {
+            alert("User Logged In");
+            localStorage.setItem("user", data.email);
+          }
+          window.location.href = `index.html`;
+        }
+        else
+          alert("User Dosen't Exist");
+  })
+  .catch(err => console.log(err));
+  }
+</script>
+</body>
+</html>

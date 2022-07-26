@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PROPERTY MANAGEMENT SYSTEM</title>
+	<link rel="stylesheet" href="s1.css">
+	<style>.my{
+		background-color: #2eca6a;
+	}
+	html{
+		background-color:#2eca6a
+	}
+.wrapper {
+  
+  background-color:#2eca6a;
+}
+	</style>
+  <script>
+    if(localStorage.getItem("host")==null) {
+      window.location.href = `signin.html`;
+    }
+    function func1() {
+      let data = {
+        name : document.getElementById("property_name").value,
+        description : document.getElementById("description").value,
+        neighborhood : document.getElementById("neighborhood").value,
+        category : document.getElementById("category").value,
+        price : document.getElementById("price").value,
+        amenities : document.getElementById("amenities").value,
+        location : document.getElementById("location").value,
+        pincode : document.getElementById("pincode").value,
+        beds : document.getElementById("beds").value,
+        bathrooms : document.getElementById("bathrooms").value,
+        maxnights : document.getElementById("maxnights").value,
+        summary : document.getElementById("summary").value,
+        status : document.getElementById("status").value
+      };
+      fetch('http://127.0.0.1:8000/change', 
+        
+
+      )
+      .then(res => res.json())
+      .then(res => console.log(res));
+    }
+  </script>
+</head>
+<body>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <!-- <h2 class="inactive underlineHover"><a href=""><?php echo $row['name']; ?></a></h2> -->
+    <h2 class="active"> Register Property</h2>
+
+    <!-- Icon -->
+
+
+    <!-- Login Form -->
+    <form action="" method="post"  enctype="multipart/form-data">
+	  <input type="text" id="property_name" class="fadeIn second" name="property_name" placeholder="Property Name" required>
+    <input type="text" id="description" class="fadeIn second" name="description" placeholder="Property Description" required>
+    <input type="text" id="neighborhood" class="fadeIn second" name="neighborhood" placeholder="Property Neighborhood">
+    <input type="text" id="category" class="fadeIn second" name="category" placeholder="Category" required>
+    <input type="text" id="price" class="fadeIn second" name="price" placeholder="Price" required>
+	  <input type="text" id="amenities" class="fadeIn second" name="amenities" placeholder="Amenites(use ',' to seperate)" required>
+    <input type="text" id="location" class="fadeIn second" name="location" placeholder="Location" required>
+    <input type="text" id="pincode" class="fadeIn second" name="pincode" placeholder="Pincode" required>
+    <input type="text" id="beds" class="fadeIn second" name="beds" placeholder="Beds" required>
+    <input type="text" id="bathrooms" class="fadeIn second" name="bathrooms" placeholder="Bathrooms" required>
+    <input type="text" id="maxnights" class="fadeIn second" name="maxnights" placeholder="Max Nights" required>
+    <input type="text" id="summary" class="fadeIn second" name="summary" placeholder="Property Summary">
+    <input type="text" id="status" class="fadeIn second" name="status" placeholder="Status">
+    <button type="button" name="uploadImageBtn" id="uploadImageBtn" class="fadeIn fourth" value="Register" onclick="func1()">Register</button>
+    </form>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>

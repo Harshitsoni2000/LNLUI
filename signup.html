@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PROPERTY MANAGEMENT SYSTEM</title>
+	<link rel="stylesheet" href="s1.css">
+	<style>.my{
+		background-color: #2eca6a;
+	}
+	html{
+		background-color:#2eca6a
+	}
+.wrapper {
+  
+  background-color:#2eca6a;
+}
+	</style>
+</head>
+<body>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="inactive underlineHover"><a href="signin.html">Sign In </a></h2>
+    <h2 class="active"> Sign Up </h2>
+
+    <!-- Icon -->
+
+
+    <!-- Login Form -->
+    <form action="" method="post">
+	    <input type="text" id="name" class="fadeIn second name" name="name" placeholder="Name" required>
+      <input type="email" id="email" class="fadeIn second email" name="email" placeholder="Email" required>
+      <input type="password" id="password" class="fadeIn third password" name="password" placeholder="Password" required>
+      <input type="text" id="Phone" class="fadeIn second phone" name="phone" placeholder="Phone" required>
+      <button type="button" class="fadeIn fourth" value="Register" onclick="func()">Register</button>
+    </form>
+
+    <div id="formFooter">
+       <p>Already have an account? <a class="underlineHover" href="signin.html">Login here</a>.</p>
+
+    </div>
+
+
+  </div>
+</div>
+<script>
+  function func() {
+    let userData = {
+      "name": document.querySelector(".name").value,
+      "email": document.querySelector(".email").value,
+      "password": document.querySelector(".password").value,
+      "phone": document.querySelector(".phone").value
+    };
+
+    fetch(`http://localhost:7900/elastic/signup`, {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Request-Method': 'POST',
+          'Access-Control-Request-Headers': 'Content-Type'
+      },
+      body: JSON.stringify(userData)
+  })
+  .then(response => response.json())
+  .then(message => {
+    if(message["success"]) {
+          alert("User Signed Up. Log In to continue.");
+        }
+        else
+          alert("User already exists. Log In to continue.");
+      window.location.href = `signin.html`;
+
+  })
+  .catch(err => console.log(err));
+  }
+</script>
+</body>
+</html>
